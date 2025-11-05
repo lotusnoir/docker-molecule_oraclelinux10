@@ -74,6 +74,8 @@ push_img_on_dockerhub:
   stage: push
   image: docker:latest
   needs: ["test_build"]
+  tags:
+    - avx2
   services:
     - docker:dind
   before_script:
