@@ -4,7 +4,7 @@ LABEL maintainer="lotusnoir"
 ENV container=docker
 
 RUN yum -y install rpm dnf-plugins-core && yum -y update \
-    && yum -y install oracle-epel-release-el10 glibc-langpack-en initscripts sudo which python3-pip wget vim curl net-tools \
+    && yum -y install oracle-epel-release-el10 glibc-langpack-en initscripts sudo which python3-pip wget vim curl net-tools gnupg2 \
     && yum clean all && rm -rf /tmp/* /var/tmp/* /usr/share/doc /usr/share/man
 
 ENV LANG=en_US.UTF-8
