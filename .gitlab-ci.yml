@@ -83,7 +83,7 @@ push_img_on_dockerhub:
   services:
     - docker:dind
   before_script:
-    - docker info
+    - until docker info 2>/dev/null; do echo "Waiting for Docker..."; sleep 2; done
     - docker login -u "${DOCKERHUB_USER}" -p "${DOCKERHUB_TOKEN}"
   script:
     - docker build -t "${DOCKERHUB_TAG}" .
