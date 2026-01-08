@@ -45,7 +45,11 @@ test_build:
     - avx2
   services:
     - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""  # Disable TLS for simplicity
   script:
+    - until docker info 2>/dev/null; do echo "Waiting for Docker..."; sleep 2; done
     - docker build -t test-build-${OS_TYPE} .
     - docker stop test-${OS_TYPE} || true && docker rm test-${OS_TYPE} || true
     - docker run -d --name=test-${OS_TYPE} --cgroupns=host --volume=/sys/fs/cgroup:/sys/fs/cgroup:rw test-build-${OS_TYPE}
